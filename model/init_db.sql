@@ -1,8 +1,8 @@
 SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS gyms;
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS photos;
+-- DROP TABLE IF EXISTS reviews;
+-- DROP TABLE IF EXISTS photos;
 SET foreign_key_checks = 1;
 
 CREATE TABLE users (
@@ -36,26 +36,26 @@ CREATE TABLE gyms (
     INDEX idx_city (city)
 );
 
-CREATE TABLE reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
-    comment TEXT,
-    user_id INT NOT NULL,
-    gym_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (gym_id) REFERENCES gyms(id) ON DELETE CASCADE,
-    INDEX idx_gym (gym_id)
-);
+-- CREATE TABLE reviews (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+--     comment TEXT,
+--     user_id INT NOT NULL,
+--     gym_id INT NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+--     FOREIGN KEY (gym_id) REFERENCES gyms(id) ON DELETE CASCADE,
+--     INDEX idx_gym (gym_id)
+-- );
 
-CREATE TABLE photos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    url VARCHAR(255) NOT NULL,
-    gym_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (gym_id) REFERENCES gyms(id) ON DELETE CASCADE,
-    INDEX idx_gym (gym_id)
-);
+-- CREATE TABLE photos (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     url VARCHAR(255) NOT NULL,
+--     gym_id INT NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (gym_id) REFERENCES gyms(id) ON DELETE CASCADE,
+--     INDEX idx_gym (gym_id)
+-- );
 
 -- Insert some sample data
 INSERT INTO users (name, email, password, role) VALUES 
