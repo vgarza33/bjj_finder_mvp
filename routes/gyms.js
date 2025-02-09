@@ -26,6 +26,17 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+// GET gyms by city
+router.get("/city/:city", async function (req, res, next) {
+  const { city } = req.params;
+  try {
+    const results = await db(`SELECT * FROM gyms WHERE city = "${city}";`);
+    res.send(results);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
 // GET gyms by province/state
 router.get("/province_state/:province_state", async function (req, res, next) {
   const { province_state } = req.params;

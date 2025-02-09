@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const [gyms, setGyms] = useState([]);
@@ -30,15 +31,34 @@ const Home = () => {
     }
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (searchTerm, searchType) => {
     try {
       setLoading(true);
-      const response = await fetch("/api/gyms/search");
+
+      let endpoint;
+      if (searchType === "city") {
+        endpoint = `/api/gyms/city/${encodeURIComponent(searchTerm)}`;
+      } else {
+        endpoint = `/api/gyms/province_state/${encodeURIComponent(searchTerm)}`;
+      }
+
+      const response = await fetch(endpoint);
       if (!response.ok) {
         throw new Error("Something went wrong while searching for gyms.");
       }
+
       const data = await response.json();
+      console.log(data);
       setGyms(data);
+
+      // Show message if no gyms found
+      if (data.length === 0) {
+        setError(
+          `No gyms found in this ${
+            searchType === "city" ? "city" : "province/state"
+          }.`
+        );
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -67,6 +87,7 @@ const Home = () => {
       <h1 className="text-3xl font-bold text-center mb-8">
         Find NoGi BJJ Gyms
       </h1>
+      <SearchBar onSearch={handleSearch} />
       <ul>
         {gyms.map((gym) => (
           <li key={gym.id}>
