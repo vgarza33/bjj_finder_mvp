@@ -16,7 +16,7 @@ const GymCard = ({ gym }) => {
           rel="noreferrer"
           className="text-blue-500 hover:text-blue-700 mb-2 block"
         >
-          {gym.instagram}
+          @{gym.instagram}
         </a>
       )}
       {gym.website !== "NA" && (
@@ -31,7 +31,7 @@ const GymCard = ({ gym }) => {
       )}
       <div className="mt-4">
         <Link
-          to={`/gyms/${gym._id}`}
+          to={`/gyms/${gym.id}`}
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
         >
           View Gym

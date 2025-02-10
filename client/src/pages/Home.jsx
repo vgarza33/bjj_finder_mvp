@@ -91,7 +91,7 @@ const Home = () => {
       <SearchBar onSearch={handleSearch} />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {gyms.map((gym) => (
-          <GymCard key={gym._id} gym={gym} />
+          <GymCard key={gym.id} gym={gym} />
         ))}
       </div>
     </div>
