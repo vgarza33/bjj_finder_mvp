@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
+import GymCard from "../components/GymCard";
 
 const Home = () => {
   const [gyms, setGyms] = useState([]);
@@ -88,13 +89,11 @@ const Home = () => {
         Find NoGi BJJ Gyms
       </h1>
       <SearchBar onSearch={handleSearch} />
-      <ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {gyms.map((gym) => (
-          <li key={gym.id}>
-            <a href={`/gym/${gym.id}`}>{gym.name}</a>
-          </li>
+          <GymCard key={gym._id} gym={gym} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
