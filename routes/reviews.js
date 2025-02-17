@@ -14,8 +14,9 @@ router.get("/:gym_id", async function (req, res, next) {
 });
 
 // POST new review
-router.post("/", async function (req, res, next) {
-  const { rating, comment, gym_id } = req.body;
+router.post("/gym/:gym_id", async function (req, res, next) {
+  const { rating, comment } = req.body;
+  const { gym_id } = req.params;
   try {
     const results = await db(
       `INSERT INTO reviews (rating, comment, gym_id) VALUES (${rating}, "${comment}", ${gym_id});`

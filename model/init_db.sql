@@ -10,8 +10,8 @@ CREATE TABLE gyms (
     city VARCHAR(100) NOT NULL,
     province_state VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL,
-    latitude DECIMAL(10,8) NOT NULL,
-    longitude DECIMAL(11,8) NOT NULL,
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(11,8),
     instagram VARCHAR(100),
     website VARCHAR(255),
     drop_in_fee VARCHAR(100),
@@ -27,7 +27,7 @@ CREATE TABLE reviews (
 );
 
 INSERT INTO gyms (name, address, city, province_state, country, latitude, longitude, instagram, website, drop_in_fee, description) VALUES 
-('10th Planet Korea', '5113-10 Taepyeong-dong Sujeong-gu', 'Seongnam-si', 'Gyeonggi-do', 'South Korea', 37.448251, 127.127126, '10thplanet_korea', 'N/A', 'Inquire by contacting gym owner', 'First 10p gym in Korea');
+('10th Planet Korea', '1324 Seongnam-daero Sujeong-gu', 'Seongnam', 'Gyeonggi-do', 'South Korea', 37.44824100, 127.12717000, '10thplanet_korea', 'NA', 'Inquire by contacting gym owner', 'First 10p gym in Korea'), ('10th Planet New Seoul', '133-24 Jegi-dong Dongdaemun-gu', 'Seoul', 'Gyeonggi-do', 'South Korea', 37.58503400, 127.03519600, '10thplanet_newseoul', 'NA', 'Inquire by contacting gym owner', 'Only 10p location in Seoul'), ('10th Planet Suwon', '25-5 Manseok-ro 19beon-gil Jangan-gu', 'Suwon', 'Gyeonggi-do', 'South Korea', 37.29637200, 126.98300800, '10thplanet_suwon', 'NA', 'Inquire by contacting gym owner', 'Third 10p location near the Seoul capital'), ('10th Planet Gwangju', '5 Jungang-ro 123beon-gil', 'Gwangju', 'Gyeonggi-do', 'South Korea', 37.41054300, 127.25732500, '10thplanet_gwangju', 'NA', 'Inquire by contacting gym owner', 'Fourth 10p location near the Seoul capital');
 
 INSERT INTO reviews (rating, comment, gym_id) VALUES 
-(5, 'Great gym!', 1);
+(5, 'Best no gi bjj gym in South Korea', 1), (4, 'Friendly atmosphere and had many fun rolls', 2), (5, 'The instructor is very good', 2);

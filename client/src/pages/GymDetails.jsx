@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Star } from "lucide-react";
 
 const GymDetails = () => {
   const { id } = useParams();
@@ -67,84 +68,136 @@ const GymDetails = () => {
     );
   }
 
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((acc, review) => acc + review.rating, 0) /
+          reviews.length
+        ).toFixed(1)
+      : "No ratings yet";
+
   return (
-    <div>
-      <div>
-        <h1 className="text-3xl font-bold mb-4">{gym.name}</h1>
-        <div>
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Location</h2>
-            <p className="mb-2">{gym.address}</p>
-            <p className="mb-2">
-              {gym.city}, {gym.province_state}
-            </p>
-            <p className="mb-4">{gym.country}</p>
-            <p className="mb-4">Drop-in Fee: {gym.drop_in_fee}</p>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Header Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                {gym.name}
+              </h1>
+              <div className="text-gray-600 space-y-1">
+                <p>
+                  <span className="font-medium">Address: </span>
+                  {gym.address}
+                </p>
+                <p>
+                  {gym.city}, {gym.province_state}
+                </p>
+                <p>{gym.country}</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
+                <p className="font-semibold">Drop-in Fee</p>
+                <p>{gym.drop_in_fee || "Contact gym"}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="mt-6 flex gap-4">
             {gym.instagram && (
               <a
                 href={`https://www.instagram.com/${gym.instagram}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue-500 hover:text-blue-700 mb-2 block"
+                className="flex items-center text-pink-600 hover:text-pink-700 transition-colors"
               >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
                 @{gym.instagram}
               </a>
             )}
+
             {gym.website !== "NA" && (
               <a
                 href={gym.website}
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue-500 hover:text-blue-700 mb-4 block"
+                className="flex items-center text-blue-600 hover:text-blue-700 transition-colors"
               >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
+                </svg>
                 Visit Website
               </a>
             )}
           </div>
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700">{gym.description}</p>
+        </div>
+
+        {/* Description Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            About the Gym
+          </h2>
+          <p className="text-gray-600 leading-relaxed">
+            {gym.description || "No description available."}
+          </p>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-gray-800">Reviews</h2>
+            <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
+              <span className="font-semibold">{averageRating}</span>
+              {reviews.length > 0 && <span className="text-sm ml-1">/ 5</span>}
+            </div>
           </div>
-          <div>
-            <h2>Reviews</h2>
-            {/* Copilot Generated */}
-            {/* {reviews.length === 0 ? (
-              <p>No reviews yet</p>
-            ) : (
-              <ul>
-                {reviews.map((review) => (
-                  <li key={review.id}>
-                    <p>
-                      {review.rating} stars - {review.comment}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            )} */}
+
+          <div className="space-y-6">
             {reviews.length > 0 ? (
-              <div>
-                {reviews.map((review) => (
-                  <div key={review.id}>
-                    <div>
-                      {[...Array(5)].map((_, i) => (
-                        <span
-                          key={i}
-                          className={`text-xl ${
-                            i < review.rating
-                              ? "text-yellow-400"
-                              : "text-gray-300"
-                          }`}
-                        >
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                    <p>{review.comment}</p>
+              reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="border-b border-gray-100 last:border-0 pb-6 last:pb-0"
+                >
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        className={`${
+                          i < review.rating
+                            ? "text-yellow-400 fill-current"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
                   </div>
-                ))}
-              </div>
+                  <p className="text-gray-600">{review.comment}</p>
+                </div>
+              ))
             ) : (
-              <p>No reviews yet</p>
+              <p className="text-gray-500 text-center py-4">
+                No reviews yet. Be the first to review!
+              </p>
             )}
           </div>
         </div>
