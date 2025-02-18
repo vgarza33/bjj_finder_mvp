@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import GymCard from "../components/GymCard";
+import HeroSection from "../components/HeroSection";
 
 const Home = () => {
   const [gyms, setGyms] = useState([]);
@@ -84,15 +85,15 @@ const Home = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Find NoGi BJJ Gyms <span className="text-1xl">in South Korea</span>
-      </h1>
-      <SearchBar onSearch={handleSearch} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {gyms.map((gym) => (
-          <GymCard key={gym.id} gym={gym} />
-        ))}
+    <div>
+      <HeroSection />
+      <div className="container mx-auto px-4 py-2">
+        <SearchBar onSearch={handleSearch} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+          {gyms.map((gym) => (
+            <GymCard key={gym.id} gym={gym} />
+          ))}
+        </div>
       </div>
     </div>
   );
