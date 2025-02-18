@@ -35,7 +35,7 @@ A full-stack web application to help practitioners find NoGi Brazilian Jiu-Jitsu
 1. Clone the repository
 ```bash
 git clone [your-repo-url]
-cd nogi-bjj-gym-finder
+cd bjj-finder-mvp
 ```
 
 2. Install dependencies
@@ -48,18 +48,25 @@ cd client
 npm install
 ```
 
-3. Set up the database
-```bash
-# Create database and tables
-mysql -u [username] -p [database_name] < model/init_db.sql
-```
-
-4. Create a .env file in the root directory with your database configuration:
+3. Create a .env file in the root directory with your database configuration:
 ```
 DB_HOST=localhost
-DB_USER=your_username
-DB_PASS=your_password
-DB_NAME=your_database_name
+DB_USER=root
+DB_PASS=YOUR_PASSWORD
+DB_NAME=bjj_finder
+```
+
+4. Set up the database
+```bash
+# Create database and tables
+mysql -u [username] -p
+create database bjj_finder;
+
+# MySQL command to connect from localhost
+ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'YOUR_PASSWORD';
+
+# Run in TERMINAL, NOT MySQL CLI!!!
+npm run migrate
 ```
 
 5. Start the development servers
@@ -71,6 +78,7 @@ npm start
 cd client
 npm start
 ```
+Express server running on port 4000. 
 
 The application should now be running on `http://localhost:5173`
 
