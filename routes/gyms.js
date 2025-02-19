@@ -15,11 +15,40 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+const treatGymData = (data) => {
+  const response = {
+    id: data[0].id,
+    name: data[0].name,
+    address: data[0].address,
+    city: data[0].city,
+    province_state: data[0].province_state,
+    country: data[0].country,
+    latitude: data[0].latitude,
+    longitude: data[0].longitude,
+    instagram: data[0].instagram,
+    website: data[0].website,
+    drop_in_fee: data[0].drop_in_fee,
+    description: data[0].description,
+    reviews: [],
+  };
+
+  data.forEach((review) => {
+    response.reviews.push({
+      id: review.id,
+      rating: review.rating,
+      comment: review.comment,
+    });
+  });
+  return response;
+};
+
 // GET gym by id
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
-    const results = await db(`SELECT * FROM gyms WHERE id = ${id};`);
+    const results = await db(
+      `SELECT gyms.*, reviews.rating, reviews.comment, reviews.id AS review_id FROM gyms LEFT JOIN reviews ON gyms.id = reviews.gym_id WHERE gyms.id = ${id};`
+    );
     res.send(results[0]);
   } catch (err) {
     res.status(500).send({ error: err.message });

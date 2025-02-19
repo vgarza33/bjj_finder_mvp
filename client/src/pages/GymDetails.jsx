@@ -125,7 +125,7 @@ const GymDetails = () => {
               </a>
             )}
 
-            {gym.website !== "NA" && (
+            {gym.website && (
               <a
                 href={gym.website}
                 target="_blank"
