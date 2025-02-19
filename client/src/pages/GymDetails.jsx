@@ -11,6 +11,7 @@ const GymDetails = () => {
 
   useEffect(() => {
     console.log("Fetching gym with ID:", id); // Debug log
+    window.scrollTo(0, 0);
     // fetch(`/api/gyms/${id}`)
     //   .then((res) => res.json())
     //   .then((data) => setGym(data));

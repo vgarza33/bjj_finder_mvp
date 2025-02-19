@@ -5,13 +5,17 @@ import GymDetails from "./pages/GymDetails";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/gyms/:id" element={<GymDetails />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <div className="min-h-screen flex flex-col">
+      <Router>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/gyms/:id" element={<GymDetails />} />
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 

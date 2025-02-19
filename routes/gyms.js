@@ -49,7 +49,13 @@ router.get("/:id", async function (req, res, next) {
     const results = await db(
       `SELECT gyms.*, reviews.rating, reviews.comment, reviews.id AS review_id FROM gyms LEFT JOIN reviews ON gyms.id = reviews.gym_id WHERE gyms.id = ${id};`
     );
-    res.send(results[0]);
+
+    if (results.length === 0) {
+      return res.status(404).send({ error: "Gym not found" });
+    }
+
+    const gymWithReviews = treatGymData(results);
+    res.send(gymWithReviews);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
@@ -73,6 +79,24 @@ router.get("/province_state/:province_state", async function (req, res, next) {
     const results = await db(
       `SELECT * FROM gyms WHERE province_state = "${province_state}";`
     );
+    res.send(results);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// GET gyms by country
+router.get("/country/:country", async function (req, res, next) {
+  const { country } = req.params;
+  try {
+    const results = await db(
+      `SELECT * FROM gyms WHERE country = "${country}";`
+    );
+
+    if (results.length === 0) {
+      return res.status(404).send({ error: "No gyms found in this country" });
+    }
+
     res.send(results);
   } catch (err) {
     res.status(500).send({ error: err.message });

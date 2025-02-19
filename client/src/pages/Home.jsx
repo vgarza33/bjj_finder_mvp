@@ -40,8 +40,10 @@ const Home = () => {
       let endpoint;
       if (searchType === "city") {
         endpoint = `/api/gyms/city/${encodeURIComponent(searchTerm)}`;
-      } else {
+      } else if (searchType === "province_state") {
         endpoint = `/api/gyms/province_state/${encodeURIComponent(searchTerm)}`;
+      } else {
+        endpoint = `/api/gyms/country/${encodeURIComponent(searchTerm)}`;
       }
 
       const response = await fetch(endpoint);
@@ -57,9 +59,15 @@ const Home = () => {
       if (data.length === 0) {
         setError(
           `No gyms found in this ${
-            searchType === "city" ? "city" : "province/state"
+            searchType === "city"
+              ? "city"
+              : searchType === "province_state"
+              ? "province/state"
+              : "country"
           }.`
         );
+      } else {
+        setError(null);
       }
     } catch (err) {
       setError(err.message);

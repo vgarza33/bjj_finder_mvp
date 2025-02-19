@@ -21,17 +21,22 @@ const SearchBar = ({ onSearch }) => {
             <select
               value={searchType}
               onChange={(e) => setSearchType(e.target.value)}
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
             >
               <option value="city">City</option>
               <option value="province_state">State/Province</option>
+              <option value="country">Country</option>
             </select>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={`Search by ${
-                searchType === "city" ? "city" : "state/province"
+                searchType === "city"
+                  ? "city"
+                  : searchType === "province_state"
+                  ? "state/province"
+                  : "country"
               }`} // Dynamic placeholder text
               className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
