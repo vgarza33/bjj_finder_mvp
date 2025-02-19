@@ -127,11 +127,6 @@ CREATE TABLE reviews (
 |
 --------
 |
-----------
-|
--------------
-|
-|
  GET 
 |
  /api/gyms 
@@ -139,13 +134,17 @@ CREATE TABLE reviews (
  Get all gyms 
 |
 |
+
+| 
  GET 
 |
  /api/gyms/:id 
 |
- Get gym by ID 
+ Get gym by ID with reviews
 |
 |
+
+| 
  GET 
 |
  /api/gyms/city/:city 
@@ -153,12 +152,25 @@ CREATE TABLE reviews (
  Get gyms by city 
 |
 |
+
+| 
  GET 
 |
  /api/gyms/province_state/:province_state 
 |
  Get gyms by province/state 
 |
+|
+
+| 
+ GET 
+|
+ /api/gyms/country/:country 
+|
+ Get gyms by country 
+|
+|
+
 |
  POST 
 |
@@ -167,6 +179,8 @@ CREATE TABLE reviews (
  Create new gym 
 |
 |
+
+| 
  PUT 
 |
  /api/gyms/:id 
@@ -174,6 +188,8 @@ CREATE TABLE reviews (
  Update gym 
 |
 |
+
+| 
  DELETE 
 |
  /api/gyms/:id 
@@ -193,11 +209,6 @@ CREATE TABLE reviews (
 |
 --------
 |
-----------
-|
--------------
-|
-|
  GET 
 |
  /api/reviews/:gym_id 
@@ -205,6 +216,8 @@ CREATE TABLE reviews (
  Get all reviews for a gym 
 |
 |
+
+| 
  POST 
 |
  /api/reviews/gym/:gym_id 
@@ -212,12 +225,16 @@ CREATE TABLE reviews (
  Create new review 
 |
 |
+
+| 
  PUT 
 |
  /api/reviews/:id 
 |
  Update review 
 |
+|
+
 |
  DELETE 
 |

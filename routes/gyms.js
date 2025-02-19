@@ -42,7 +42,7 @@ const treatGymData = (data) => {
   return response;
 };
 
-// GET gym by id
+// GET gym by id with reviews
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
