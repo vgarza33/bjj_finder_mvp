@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/gyms", gymsRouter);
 app.use("/api/reviews", reviewsRouter);
+app.use("/api/auth", authRouter);
 
 // Anthing that doesn't match the above, send back index.html
 app.get("*", (req, res) => {
