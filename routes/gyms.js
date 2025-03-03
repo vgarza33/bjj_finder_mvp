@@ -104,6 +104,7 @@ router.get("/country/:country", async function (req, res, next) {
 });
 
 // POST new gym
+// TBD add protection to this endpoint?
 router.post("/", async function (req, res, next) {
   const {
     name,
@@ -132,6 +133,7 @@ router.post("/", async function (req, res, next) {
 });
 
 // PUT update gym by id
+// TBD add protection to this endpoint?
 router.put("/:id", async function (req, res, next) {
   const { id } = req.params;
   const {
@@ -159,6 +161,7 @@ router.put("/:id", async function (req, res, next) {
 });
 
 // DELETE gym by id
+// TBD add protection to this endpoint?
 router.delete("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {

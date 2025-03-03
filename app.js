@@ -7,6 +7,7 @@ var cors = require("cors");
 
 var gymsRouter = require("./routes/gyms");
 var reviewsRouter = require("./routes/reviews");
+var authRouter = require("./routes/auth")
 
 var app = express();
 

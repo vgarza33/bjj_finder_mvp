@@ -14,6 +14,7 @@ router.get("/:gym_id", async function (req, res, next) {
 });
 
 // POST new review
+// TBD add protection to this endpoint?
 router.post("/gym/:gym_id", async function (req, res, next) {
   const { rating, comment } = req.body;
   const { gym_id } = req.params;
@@ -31,6 +32,7 @@ router.post("/gym/:gym_id", async function (req, res, next) {
 });
 
 // PUT update review
+// TBD add protection to this endpoint?
 router.put("/:id", async function (req, res, next) {
   const { id } = req.params;
   const { rating, comment } = req.body;
@@ -51,6 +53,7 @@ router.put("/:id", async function (req, res, next) {
 });
 
 // DELETE review
+// TBD add protection to this endpoint?
 router.delete("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
