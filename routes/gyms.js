@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
+const userShouldBeLoggedIn = require("../middleware/userShouldBeLoggedIn");
+
 /* GET all gyms */
 router.get("/", async function (req, res, next) {
   try {
@@ -104,8 +106,7 @@ router.get("/country/:country", async function (req, res, next) {
 });
 
 // POST new gym
-// TBD add protection to this endpoint?
-router.post("/", async function (req, res, next) {
+router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   const {
     name,
     address,
@@ -133,8 +134,8 @@ router.post("/", async function (req, res, next) {
 });
 
 // PUT update gym by id
-// TBD add protection to this endpoint?
-router.put("/:id", async function (req, res, next) {
+// make sure they can edit their own review
+router.put("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   const {
     name,
@@ -161,8 +162,8 @@ router.put("/:id", async function (req, res, next) {
 });
 
 // DELETE gym by id
-// TBD add protection to this endpoint?
-router.delete("/:id", async function (req, res, next) {
+// make sure they can only delete a gym they added
+router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   try {
     await db(`DELETE FROM gyms WHERE id = ${id};`);

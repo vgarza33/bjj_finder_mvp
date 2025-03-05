@@ -33,26 +33,26 @@ router.post("/register", async (req, res) => {
         `SELECT * FROM users WHERE username = "${username}"`
       );
       console.log(results)
-      // console.log(results.data)
-      // console.log(results[0])
+      console.log(results.data)
+      console.log(results[0])
 
-      const user = results[0];
+      const user = results.data[0];
   
       if (user) {
-      //   // create a variable with the user id
+      // create a variable with the user id
       const user_id = user.id;
   
-      //   // compare the password with the hashed password
+     // compare the password with the hashed password
       const correctPassword = await bcrypt.compare(password, user.password);
   
-      //   //if the password is incorrect, throw an error (same as a return)
+     //if the password is incorrect, throw an error (same as a return)
       if (!correctPassword) throw new Error("Incorrect password");
   
-      //   // create a token with a payload and a secret
-      //   // the payload is an object and we gonna add the user_id in it 
-      //   // { user_id } is the same as { user_id: user_id}
+      // create a token with a payload and a secret
+      // the payload is an object and we gonna add the user_id in it 
+      // { user_id } is the same as { user_id: user_id}
        const token = jwt.sign({ user_id }, supersecret);
-      //   //sign allows us to generate the token
+      // sign allows us to generate the token
       res.send({ message: "Login successful, here is your token", token });
       } else {
         throw new Error("User does not exist");

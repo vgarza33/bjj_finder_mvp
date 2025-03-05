@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
+const userShouldBeLoggedIn = require("../middleware/userShouldBeLoggedIn");
+
 // GET all reviews for a gym
 router.get("/:gym_id", async function (req, res, next) {
   const { gym_id } = req.params;
@@ -14,8 +16,7 @@ router.get("/:gym_id", async function (req, res, next) {
 });
 
 // POST new review
-// TBD add protection to this endpoint?
-router.post("/gym/:gym_id", async function (req, res, next) {
+router.post("/gym/:gym_id", userShouldBeLoggedIn, async function (req, res, next) {
   const { rating, comment } = req.body;
   const { gym_id } = req.params;
   try {
@@ -32,8 +33,8 @@ router.post("/gym/:gym_id", async function (req, res, next) {
 });
 
 // PUT update review
-// TBD add protection to this endpoint?
-router.put("/:id", async function (req, res, next) {
+// make sure to update a review they added
+router.put("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   const { rating, comment } = req.body;
   try {
@@ -53,8 +54,8 @@ router.put("/:id", async function (req, res, next) {
 });
 
 // DELETE review
-// TBD add protection to this endpoint?
-router.delete("/:id", async function (req, res, next) {
+// make sure they can only delete a review they added
+router.delete("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   try {
     const results = await db(`DELETE FROM reviews WHERE id = ${id};`);
