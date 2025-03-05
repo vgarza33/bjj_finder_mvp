@@ -23,6 +23,9 @@ router.post("/gym/:gym_id", userShouldBeLoggedIn, async function (req, res, next
     const results = await db(
       `INSERT INTO reviews (rating, comment, gym_id) VALUES (${rating}, "${comment}", ${gym_id});`
     );
+    console.log(results);
+    console.log(results.insertId);
+    //why insert.Id?
     const newReview = await db(
       `SELECT * FROM reviews WHERE id = ${results.insertId};`
     );
@@ -38,6 +41,7 @@ router.put("/:id", userShouldBeLoggedIn, async function (req, res, next) {
   const { id } = req.params;
   const { rating, comment } = req.body;
   try {
+    //is this variable needed?
     const results = await db(
       `UPDATE reviews SET rating = ${rating}, comment = "${comment}" WHERE id = ${id};`
     );

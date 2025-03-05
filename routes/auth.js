@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
       console.log(results.data)
       console.log(results[0])
 
-      const user = results.data[0];
+      const user = results[0];
   
       if (user) {
       // create a variable with the user id

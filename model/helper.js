@@ -29,7 +29,7 @@ module.exports = async function db(query) {
         }
         results.data = result;
         con.end();
-        resolve(results);
+        resolve(result);
       });
     });
   });
