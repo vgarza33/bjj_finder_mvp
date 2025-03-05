@@ -4,7 +4,10 @@ const db = require("../model/helper");
 
 const userShouldBeLoggedIn = require("../middleware/userShouldBeLoggedIn");
 
+// all the routes start with /api/gyms
+
 /* GET all gyms */
+// "/api/gyms"
 router.get("/", async function (req, res, next) {
   try {
     // console.log("GET /api/gyms route hit");
@@ -45,6 +48,7 @@ const treatGymData = (data) => {
 };
 
 // GET gym by id with reviews
+// "/api/gyms/1"
 router.get("/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
@@ -64,6 +68,7 @@ router.get("/:id", async function (req, res, next) {
 });
 
 // GET gyms by city
+// "/api/gyms/city/seoul"
 router.get("/city/:city", async function (req, res, next) {
   const { city } = req.params;
   try {
@@ -88,6 +93,7 @@ router.get("/province_state/:province_state", async function (req, res, next) {
 });
 
 // GET gyms by country
+// api/gyms/country/france
 router.get("/country/:country", async function (req, res, next) {
   const { country } = req.params;
   try {
@@ -106,23 +112,41 @@ router.get("/country/:country", async function (req, res, next) {
 });
 
 // POST new gym
+// "/api/gyms"
 router.post("/", userShouldBeLoggedIn, async function (req, res, next) {
   const {
     name,
     address,
     city,
-    province_state,
+    province_state = null,
     country,
-    latitude,
-    longitude,
-    instagram,
-    website,
-    drop_in_fee,
-    description,
+    latitude = null,
+    longitude = null,
+    instagram = null,
+    website = null,
+    drop_in_fee = null,
+    description = null,
   } = req.body;
+
+  const user_id = req.user_id; // Get the user_id from the request object set by middleware
+
   try {
     const results = await db(
-      `INSERT INTO gyms (name, address, city, province_state, country, latitude, longitude, instagram, website, drop_in_fee, description) VALUES ("${name}", "${address}", "${city}", "${province_state}", "${country}", ${latitude}, ${longitude}, "${instagram}", "${website}", "${drop_in_fee}", "${description}");`
+      `INSERT INTO gyms (
+      name, address, city, province_state, country, latitude, longitude, instagram, website, drop_in_fee, description, user_id) 
+      VALUES (
+      "${name}", 
+      "${address}", 
+      "${city}", 
+      ${province_state ? `"${province_state}"` : "NULL"},  
+      "${country}", 
+       ${latitude !== null ? latitude : "NULL"}, 
+       ${longitude !== null ? longitude : "NULL"}, 
+       ${instagram ? `"${instagram}"` : "NULL"}, 
+       ${website ? `"${website}"` : "NULL"}, 
+       ${drop_in_fee ? `"${drop_in_fee}"` : "NULL"}, 
+       ${description ? `"${description}"` : "NULL"}, 
+      ${user_id});`
     );
     const newGym = await db(
       `SELECT * FROM gyms WHERE id = ${results.insertId};`

@@ -16,19 +16,6 @@ const userShouldBeLoggedIn = (req, res, next) => {
       // if there is an error verifying the token, we will send an error
       if (err) res.status(401).send({ message: err.message });
       //is the request object doesnt have a key called user_id we will create it
-      /* 
-      decoded = {
-      "user_id": 3,
-      "iat": 1740681320
-      }
-
-      req = {
-      ... huge object
-      params: {},
-      body: {},
-      req.user_id = decoded.user_id
-      }
-      */
       req.user_id = decoded.user_id;
       next();
     });

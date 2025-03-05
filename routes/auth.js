@@ -8,6 +8,8 @@ const saltRounds = 10;
 
 const supersecret = process.env.SUPER_SECRET;
 
+// all the routes start with /api/auth
+
 router.post("/register", async (req, res) => {
     const { username, password } = req.body;
   

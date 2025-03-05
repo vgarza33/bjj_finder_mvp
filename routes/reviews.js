@@ -4,7 +4,10 @@ const db = require("../model/helper");
 
 const userShouldBeLoggedIn = require("../middleware/userShouldBeLoggedIn");
 
+// all the routes start with /api/reviews
+
 // GET all reviews for a gym
+// "/api/reviews/1"
 router.get("/:gym_id", async function (req, res, next) {
   const { gym_id } = req.params;
   try {
@@ -19,9 +22,10 @@ router.get("/:gym_id", async function (req, res, next) {
 router.post("/gym/:gym_id", userShouldBeLoggedIn, async function (req, res, next) {
   const { rating, comment } = req.body;
   const { gym_id } = req.params;
+  const user_id = req.user_id; // Get the user_id from the request object set by middleware
   try {
     const results = await db(
-      `INSERT INTO reviews (rating, comment, gym_id) VALUES (${rating}, "${comment}", ${gym_id});`
+      `INSERT INTO reviews (rating, comment, gym_id, user_id) VALUES (${rating}, "${comment}", ${gym_id}, ${user_id});`
     );
     console.log(results);
     console.log(results.insertId);
