@@ -2,7 +2,6 @@ var jwt = require("jsonwebtoken");
 const supersecret = process.env.SUPER_SECRET;
 
 const userShouldBeLoggedIn = (req, res, next) => {
-  console.log("HELLO FROM THE MIDDLEWARE");
   // it should select * from users from the user that is logged in
   //the only way to get the user id is from the token
   const token = req.headers.authorization?.replace(/^Bearer\s/, "");
