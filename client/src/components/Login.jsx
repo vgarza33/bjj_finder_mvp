@@ -38,6 +38,10 @@ const Login = () => {
             
             localStorage.setItem("token", data.token);
             // Redirect the user to the profile page
+
+            // Dispatch event to notify Navbar of the login status change
+            window.dispatchEvent(new Event('loginStatusChanged'));
+
             navigate("/");
         } catch (err) {
             console.error("Login error:", err);
@@ -45,9 +49,6 @@ const Login = () => {
         }
     };
     
-    const logout = () => {
-        localStorage.removeItem("token");
-    };
     
     return (
         <div>
