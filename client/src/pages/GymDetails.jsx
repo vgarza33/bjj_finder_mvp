@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Star } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Star, PlusCircle } from "lucide-react";
 
 const GymDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [gym, setGym] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,6 +50,10 @@ const GymDetails = () => {
       setError(err.message);
       setLoading(false);
     }
+  };
+
+  const handleAddReview = () => {
+    navigate(`/gyms/${id}/add-review`);
   };
 
   if (loading) {
@@ -166,9 +171,18 @@ const GymDetails = () => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold text-gray-800">Reviews</h2>
-            <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
-              <span className="font-semibold">{averageRating}</span>
-              {reviews.length > 0 && <span className="text-sm ml-1">/ 5</span>}
+            <div className="flex items-center gap-4">
+              <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg">
+                <span className="font-semibold">{averageRating}</span>
+                {reviews.length > 0 && <span className="text-sm ml-1">/ 5</span>}
+              </div>
+              <button 
+                onClick={handleAddReview}
+                className="flex items-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                <PlusCircle size={16} className="mr-2" />
+                Add Review
+              </button>
             </div>
           </div>
 

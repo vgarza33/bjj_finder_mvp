@@ -7,6 +7,7 @@ const Login = () => {
         username: "",
         password: "",
     });
+    const [error, setError] = useState("");
     
     const { username, password } = credentials;
     const navigate = useNavigate();
@@ -19,6 +20,15 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault(); // Prevent form submission default behavior
         
+        // Validate form fields
+        if (!username.trim() || !password.trim()) {
+            setError("Username and password are required");
+            return; // Stop execution if validation fails
+        }
+        
+        // Clear any previous error when attempting login
+        setError("");
+        
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
@@ -27,28 +37,63 @@ const Login = () => {
                 },
                 body: JSON.stringify(credentials)
             });
-            
             // Check if the response is ok
             if (!response.ok) {
                 throw new Error(`Error ${response.status}: ${response.statusText}`);
             }
-            
             // Parse the JSON response
             const data = await response.json();
-            
             localStorage.setItem("token", data.token);
-            // Redirect the user to the profile page
-
+           
             // Dispatch event to notify Navbar of the login status change
             window.dispatchEvent(new Event('loginStatusChanged'));
-
+            
+            // Redirect the user to the gyms page
             navigate("/");
         } catch (err) {
             console.error("Login error:", err);
-            // Handle error appropriately - maybe set an error state to display to user
+            setError("Login failed. Please check your credentials.");
         }
     };
-    
+
+    const register = async (e) => {
+        e.preventDefault(); // Prevent form submission default behavior
+        
+        // Validate form fields
+        if (!username.trim() || !password.trim()) {
+            setError("Username and password are required");
+            return; // Stop execution if validation fails
+        }
+        
+        // Clear any previous error when attempting registration
+        setError("");
+        
+        try {
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credentials)
+            });
+            // Check if the response is ok
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            // Parse the JSON response
+            const data = await response.json();
+            localStorage.setItem("token", data.token);
+           
+            // Dispatch event to notify Navbar of the login status change
+            window.dispatchEvent(new Event('loginStatusChanged'));
+            
+            // Redirect the user to the gyms page
+            navigate("/");
+        } catch (err) {
+            console.error("Registration error:", err);
+            setError("Registration failed. Please try again.");
+        }
+    };
     
     return (
         <div>
@@ -107,9 +152,18 @@ const Login = () => {
                         </div>
                     </form>
 
+                    {error && (
+                        <div className="mt-4 text-center text-sm text-red-600">
+                            {error}
+                        </div>
+                    )}
+                    
                     <p className="mt-10 text-center text-sm/6 text-gray-500">
                         Not a member?
-                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500"> Register</a>
+                        <button 
+                            onClick={register} 
+                            className="ml-1 font-semibold text-indigo-600 hover:text-indigo-500 bg-transparent border-none cursor-pointer"
+                        >Register</button>
                     </p>
                 </div>
             </div>
