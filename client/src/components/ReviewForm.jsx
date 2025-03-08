@@ -33,10 +33,11 @@ const ReviewForm = () => {
     setError(null);
     
     try {
-      const response = await fetch(`/api/gym/${id}`, {
+      const response = await fetch(`/api/reviews/gym/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+           "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({
           rating,
