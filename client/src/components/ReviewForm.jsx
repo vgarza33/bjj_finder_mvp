@@ -108,6 +108,7 @@ const ReviewForm = () => {
                 placeholder="Share your experience with this gym..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                // This inline approach with onChange={(e) => setComment(e.target.value)} is functionally equivalent to having a separate handleChange function. 
               ></textarea>
             </div>
             

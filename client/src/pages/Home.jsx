@@ -8,6 +8,7 @@ const Home = () => {
   const [gyms, setGyms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -95,14 +96,36 @@ const Home = () => {
   }
 
   const handleAddGym = () => {
-    navigate(`/gyms/add-gym`);
-  }
+    // check if user is logged in by checking if there's a token in localStorage
+    const isLoggedIn = localStorage.getItem('token') || false; 
+    
+    if (isLoggedIn) {
+      navigate(`/gyms/add-gym`);
+    } else {
+      // Show alert instead of navigating
+      setShowAlert(true);
+      
+      // Automatically hide the alert after 3 seconds
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+    }
+  };
 
   return (
     <div>
       <HeroSection />
       <div className="container mx-auto px-4 py-2">
         <SearchBar onSearch={handleSearch} />
+
+         {/* Alert message */}
+         {showAlert && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span className="block sm:inline">Must be logged in to add gym.</span>
+          </div>
+        )}
+        
+
         <button 
         className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300 flex items-center"
         onClick={handleAddGym}
