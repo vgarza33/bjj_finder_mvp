@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import GymCard from "../components/GymCard";
 import HeroSection from "../components/HeroSection";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [gyms, setGyms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   fetch("/api/gyms")
@@ -92,11 +94,21 @@ const Home = () => {
     );
   }
 
+  const handleAddGym = () => {
+    navigate(`/gyms/add-gym`);
+  }
+
   return (
     <div>
       <HeroSection />
       <div className="container mx-auto px-4 py-2">
         <SearchBar onSearch={handleSearch} />
+        <button 
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300 flex items-center"
+        onClick={handleAddGym}
+      >
+        Add Gym
+      </button>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
           {gyms.map((gym) => (
             <GymCard key={gym.id} gym={gym} />

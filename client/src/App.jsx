@@ -5,6 +5,7 @@ import GymDetails from "./pages/GymDetails";
 import Navbar from "./components/NavBar";
 import Login from "./components/Login";
 import ReviewForm from "./components/ReviewForm";
+import AddGym from "./components/AddGym";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/gyms/:id" element={<GymDetails />} />
             <Route path="/gyms/:id/add-review" element={<ReviewForm />} />
+            <Route path="/gyms/add-gym" element={<AddGym />} />
           </Routes>
         </div>
         <Footer />
