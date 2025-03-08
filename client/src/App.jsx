@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import GymDetails from "./pages/GymDetails";
 import Navbar from "./components/NavBar";
 import Login from "./components/Login";
-import ReviewForm from "./components/ReviewForm";
+import ReviewForm from "./components/AddReview";
 import AddGym from "./components/AddGym";
 
 function App() {

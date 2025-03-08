@@ -8,6 +8,7 @@ const GymDetails = () => {
   const [gym, setGym] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -53,7 +54,22 @@ const GymDetails = () => {
   };
 
   const handleAddReview = () => {
-    navigate(`/gyms/${id}/add-review`);
+    //check if user is logged in
+    const isLoggedIn = localStorage.getItem('token') || false; 
+
+    if (isLoggedIn) {
+      navigate(`/gyms/${id}/add-review`);
+    } else {
+      //show alert instead of navigating
+      setShowAlert(true);
+
+      //automatically hide alert after 3 seconds
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000)
+    }
+
+    
   };
 
   if (loading) {
@@ -166,6 +182,13 @@ const GymDetails = () => {
             {gym.description || "No description available."}
           </p>
         </div>
+
+         {/* Alert message */}
+         {showAlert && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span className="block sm:inline">Must be logged in to add gym.</span>
+          </div>
+        )}
 
         {/* Reviews Section */}
         <div className="bg-white rounded-lg shadow-md p-6">

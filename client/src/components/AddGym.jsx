@@ -63,7 +63,7 @@ const AddGym = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to add gym. You must be logged in to add a gym.");
+                throw new Error("Failed to add gym");
               }
 
            // Redirect back to home page after successful submission   

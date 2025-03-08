@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
 
-const ReviewForm = () => {
+const AddReview = () => {
   const { id } = useParams(); // This will be the gym ID
   const navigate = useNavigate();
   
@@ -137,4 +137,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default AddReview;
