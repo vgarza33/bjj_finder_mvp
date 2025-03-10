@@ -19,8 +19,19 @@ router.post("/register", async (req, res) => {
       await db(
         `INSERT INTO users (username, password) VALUES ("${username}", "${hash}")`
       );
+
+       // Query to get the newly created user's ID
+       const userResult = await db(`SELECT id FROM users WHERE username = "${username}"`);
+       
+        console.log(userResult)
+        // userResult = [ { id: 3 }]
+       const userId = userResult[0].id;
+       // userResult[0].id = 3
+       console.log(userResult[0].id)
+       // Generate a token for the new user
+       const token = jwt.sign({ user_id: userId }, supersecret);
   
-      res.send({ message: "Register successful" });
+      res.send({ message: "Register successful", token });
     } catch (err) {
       res.status(400).send({ message: err.message });
     }
@@ -64,9 +75,5 @@ router.post("/register", async (req, res) => {
     }
   });
 
-  /* DO I NEED THIS ENDPOINT? YES, RIGHT?
-  SOFIA SAID THIS ENDPONT NEEDS TO BE PROTECTED SO OTHERS CAN'T ACCESS THIS PROFILE 
-  is router.get("/profile", (req, res) => {});
-  */
-
+ 
   module.exports = router;
