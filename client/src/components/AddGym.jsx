@@ -9,8 +9,6 @@ const AddGym = () => {
         city: "",
         country: "",
         province_state: "",
-        latitude: null,
-        longitude:null,
         instagram:"",
         website:"",
         drop_in_fee:"",
@@ -24,23 +22,7 @@ const AddGym = () => {
         
         // Create a copy of the current form data
         const updatedFormData = { ...formData };
-        
-        // Check if the field is longitude or latitude
-        if (name === "longitude" || name === "latitude") {
-            // For coordinate fields, handle differently
-            if (value === "") {
-                // If the field is empty, set the value to null
-                // (The database expects NULL for empty coordinates)
-                updatedFormData[name] = null;
-            } else {
-                // If the field has a value, convert it to a floating-point number
-                updatedFormData[name] = parseFloat(value);
-            }
-        } else {
-            // For all other fields (name, address, etc.), keep as string
-            updatedFormData[name] = value;
-        }
-        
+        updatedFormData[name] = value;
         // Update the form data with our changes
         setFormData(updatedFormData);
     };
