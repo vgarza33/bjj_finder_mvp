@@ -267,7 +267,7 @@ const AddGym = () => {
                 name="drop_in_fee"
                 value={formData.drop_in_fee}
                 onChange={e => handleChange(e)}
-                placeholder="$20 or Free"
+                placeholder="$20 or Free (leave blank if unknown)"
                 className="block w-full px-4 py-3 rounded-md border-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-base"
               />
             </div>
