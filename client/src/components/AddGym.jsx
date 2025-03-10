@@ -178,7 +178,7 @@ const AddGym = () => {
             </div>
           </div>
           
-          {/* Location Coordinates */}
+          {/* Location Coordinates
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-700 border-b pb-2">Location Coordinates</h3>
             
@@ -215,7 +215,7 @@ const AddGym = () => {
                 <p className="mt-1 text-xs text-gray-500">Decimal format (e.g., -74.12345678)</p>
               </div>
             </div>
-          </div>
+          </div> */}
           
           {/* Contact Information */}
           <div className="space-y-4">

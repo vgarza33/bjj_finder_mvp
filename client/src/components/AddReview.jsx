@@ -47,7 +47,7 @@ const AddReview = () => {
       });
       
       if (!response.ok) {
-        throw new Error("Failed to submit review. You must be logged in to make a review.");
+        throw new Error("Failed to submit review.");
       }
       
       // Redirect back to gym details page after successful submission
